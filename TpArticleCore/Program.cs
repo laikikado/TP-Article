@@ -11,7 +11,7 @@ namespace TPArticle
 
             using (var db = new Model())
             {
-                // Create
+                // Creation du jeu de données
                 db.Add(new Secteur { 
                     Id = 1, 
                     Nom = "Secteur A" 
@@ -103,28 +103,42 @@ namespace TPArticle
                 
                 db.SaveChanges();
                 Console.WriteLine("");
+                
 
-                // Read
-                Console.WriteLine("Lecture de l'étagere avec l'id le plus petit :");
-                var etagere = db.Etagere
+                // Récupérer un article par son Id
+                Console.WriteLine("Selection d'un article");
+                var articleById = db.Article
+                    .Find(1);
+                Console.WriteLine("Id: " + articleById.Id);
+                Console.WriteLine("Libelle: " + articleById.Libelle);
+                Console.WriteLine("Poids: " + articleById.Poids);
+                Console.WriteLine("PrixInitial: " + articleById.PrixInitial);
+                Console.WriteLine("SKU: " + articleById.SKU);
+                Console.WriteLine("");
+
+
+                // Récupérer la totalité des articles (de trois façons : global + par étagère + par secteur)
+
+
+                // Ajouter/modifier/supprimer un article
+                Console.WriteLine("Selection d'un article");
+                var articleRUD = db.Article
                     .OrderBy(b => b.Id)
                     .First();
-                Console.WriteLine("Id: " + etagere.Id);
-                Console.WriteLine("PoidsMaximum: " + etagere.PoidsMaximum);
-                Console.WriteLine("IdSecteur: " + etagere.IdSecteur);
+
+                articleRUD.Libelle = "Libelle modifié";
+                db.SaveChanges();
+                Console.WriteLine("Modification de l'article");
                 Console.WriteLine("");
 
-                // Update
-                etagere.PoidsMaximum = 150;
+                db.Remove(articleRUD);
                 db.SaveChanges();
-                Console.WriteLine("Modification de l'etagere");
+                Console.WriteLine("Suppression de l'article");
                 Console.WriteLine("");
 
-                // Delete
-                db.Remove(etagere);
-                db.SaveChanges();
-                Console.WriteLine("Suppression de l'etagere");
-                Console.WriteLine("");
+                // Récupérer le prix moyen par secteur
+
+                
             }
         }
     }

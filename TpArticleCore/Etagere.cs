@@ -10,8 +10,6 @@ namespace TPArticle
         public decimal PoidsMaximum { get; set; }
         public int IdSecteur { get; set; }
 
-        public List<Article> Articles { get; } = new List<Article>();
-
         public Etagere(int id, decimal poidsMaximum, int idSecteur)
         {
             Id = id;
